@@ -28,7 +28,7 @@ docker run -d --restart=always --network=host -v $PWD/snap_conf_folder:/config s
 ```
 
 ### Docker Compose
-The `docker-compose.yaml` file can be used to accomplish virtually the same as the above `docker run` command however in a configurable yaml file.
+The `docker-compose.yaml` file can be used to accomplish virtually the same as the above `docker run` command however in a configurable yaml file. This file includes a bind mount to the `/tmp` directory for usage with the `snapfifo` pipe. I use this specifically for piping the analog input on the Hifiberry DAC+ ADC into the snapserver however it can be used to pipe any audio source.
 
 To run snapserver using Hifiberry OS specific folder structure:
 ```
