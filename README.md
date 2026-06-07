@@ -1,30 +1,35 @@
 # Snapcast Server Docker
 Useful for running snapcast server on Hifiberry OS or any other armv7 architecture
 
+This image currently installs:
+
+- Snapcast server `0.35.0`
+- librespot `0.8.0`
+
 ## Usage
 
 ### Build
 To build the docker image from the raspberry Pi 3/4
 ```
-docker build . -t ssalaues:snapcast
+docker build . -t ssalaues/snapcast:0.35.0-librespot0.8.0
 ```
 
 ### Pull
 Pull my pre-built image
 ```
-docker pull ssalaues:snapcast
+docker pull ssalaues/snapcast:0.35.0-librespot0.8.0
 ```
 
 ### Docker Run
 
 Run interactively with defaults. This will clean up the container when it exits.
 ```
-docker run --rm -it --network=host ssalaues:snapcast snapserver
+docker run --rm -it --network=host ssalaues/snapcast:0.35.0-librespot0.8.0 snapserver
 ```
 
 Mount config file, run as detached process, and auto restart on failure
 ```
-docker run -d --restart=always --network=host -v $PWD/snap_conf_folder:/config ssalaues:snapcast snapserver -c /config/snapserver.conf
+docker run -d --restart=always --network=host -v $PWD/snap_conf_folder:/config ssalaues/snapcast:0.35.0-librespot0.8.0 snapserver -c /config/snapserver.conf
 ```
 
 ### Docker Compose

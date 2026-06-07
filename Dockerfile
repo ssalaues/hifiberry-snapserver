@@ -1,7 +1,21 @@
-FROM arm32v7/alpine
+FROM arm32v7/alpine:edge
 
-RUN apk add snapcast-server alsa-utils alsa-utils-doc alsa-lib alsaconf \
-    && apk add librespot --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+ARG SNAPCAST_VERSION=0.35.0-r0
+ARG LIBRESPOT_VERSION=0.8.0-r0
 
-CMD snapserver
+RUN set -eux; \
+    printf '%s\n' \
+        'https://dl-cdn.alpinelinux.org/alpine/edge/main' \
+        'https://dl-cdn.alpinelinux.org/alpine/edge/community' \
+        'https://dl-cdn.alpinelinux.org/alpine/edge/testing' \
+        > /etc/apk/repositories; \
+    apk add --no-cache \
+        alsa-lib \
+        alsa-utils \
+        ca-certificates \
+        "snapcast-server=${SNAPCAST_VERSION}" \
+        "librespot=${LIBRESPOT_VERSION}"; \
+    snapserver --version; \
+    librespot --version
 
+CMD ["snapserver"]
